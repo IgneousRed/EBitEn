@@ -34,19 +34,19 @@ func DrawLine(screen *eb.Image, a, b m.Vec[float32], thickness float32, col colo
 		b.Add(normal),
 	}, []uint16{0, 1, 2, 1, 2, 3}, col)
 }
-func DrawRectangle(screen *eb.Image, position, size m.Vec[float32], col color.Color) {
+func DrawRectangle(screen *eb.Image, pos, size m.Vec[float32], col color.Color) {
 	DrawTriangles(screen, []m.Vec[float32]{
-		position,
-		position.Add(m.Vec[float32]{size[0], 0}),
-		position.Add(m.Vec[float32]{0, size[1]}),
-		position.Add(m.Vec[float32]{size[0], size[1]}),
+		pos,
+		pos.Add(m.Vec[float32]{size[0], 0}),
+		pos.Add(m.Vec[float32]{0, size[1]}),
+		pos.Add(m.Vec[float32]{size[0], size[1]}),
 	}, []uint16{0, 1, 2, 1, 2, 3}, col)
 }
-func DrawCircle(screen *eb.Image, position m.Vec[float32], size float32, points int, col color.Color) {
+func DrawCircle(screen *eb.Image, pos m.Vec[float32], size float32, points int, col color.Color) {
 	verts := make([]m.Vec[float32], points)
 	for i := range verts {
 		ang := float32(i) / float32(points) * math.Pi * 2
-		verts[i] = m.Vec[float32]{m.Cos(ang), m.Sin(ang)}.Mul1(size).Add(position)
+		verts[i] = m.Vec[float32]{m.Cos(ang), m.Sin(ang)}.Mul1(size).Add(pos)
 	}
 	inds := make([]uint16, 0, (points-2)*3)
 	for i := 2; i < points; i++ {
