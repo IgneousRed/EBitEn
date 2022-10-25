@@ -5,6 +5,7 @@ import (
 
 	m "github.com/IgneousRed/gomisc"
 	eb "github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
 type Color color.RGBA
@@ -22,13 +23,6 @@ var Yellow = Color{255, 255, 0, 255}
 var Cyan = Color{0, 255, 255, 255}
 var Magenta = Color{255, 0, 255, 255}
 
-func Vec2i(x, y int) m.Vec[int] {
-	return m.Vec[int]{x, y}
-}
-func Vec2f(x, y float32) m.Vec[float32] {
-	return m.Vec[float32]{x, y}
-}
-
 var WindowSizeX, WindowSizeY int
 var WindowSizeFX, WindowSizeFY float32
 
@@ -38,4 +32,24 @@ func InitGame(name string, windowSizeX, windowSizeY int, game eb.Game) {
 	eb.SetWindowTitle(name)
 	eb.SetWindowSize(windowSizeX, windowSizeY)
 	m.FatalErr("", eb.RunGame(game))
+}
+func Vec2I(x, y int) m.Vec[int] {
+	return m.Vec[int]{x, y}
+}
+func Vec2F(x, y float32) m.Vec[float32] {
+	return m.Vec[float32]{x, y}
+}
+
+type Keys map[eb.Key]struct{}
+
+func GetKeys() Keys {
+	result := Keys{}
+	for _, k := range inpututil.AppendPressedKeys(nil) {
+		result[k] = struct{}{}
+	}
+	return result
+}
+func (k Keys) Pressed(key eb.Key) bool {
+	_, b := k[key]
+	return b
 }
