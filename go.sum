@@ -1,6 +1,12 @@
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/IgneousRed/gomisc v0.0.0-20221020013713-24d41b831488 h1:0CSRqzcdPyhtnSaL5YF1U6bIt2um7z5PlcUWuUFt2MA=
 github.com/IgneousRed/gomisc v0.0.0-20221020013713-24d41b831488/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
+github.com/IgneousRed/gomisc v0.0.0-20221024135433-a01994aa2912 h1:+fibQoAnhU7uwPTtdRczs+k1sd+6gZuzYZDqOPts7JQ=
+github.com/IgneousRed/gomisc v0.0.0-20221024135433-a01994aa2912/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
+github.com/IgneousRed/gomisc v0.0.0-20221025090323-79a7781fb542 h1:MdS54OOO5ESTaxI32T8YRoBT//BpqgoNQDEfE/8LDAg=
+github.com/IgneousRed/gomisc v0.0.0-20221025090323-79a7781fb542/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
+github.com/IgneousRed/gomisc v0.0.0-20221025091651-64aad9d58f9a h1:z9PgQQu/JrbTl/mRx+itLP7uV6Rao7n1lVnvjq2qhZg=
+github.com/IgneousRed/gomisc v0.0.0-20221025091651-64aad9d58f9a/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
 github.com/ebitengine/purego v0.0.0-20220905075623-aeed57cda744/go.mod h1:Eh8I3yvknDYZeCuXH9kRNaPuHEwvXDCk378o9xszmHg=
 github.com/ebitengine/purego v0.1.0 h1:vAEo1FvmbjA050QKsbDbcHj03hhMMvh0fmr9LSehpnU=
 github.com/ebitengine/purego v0.1.0/go.mod h1:Eh8I3yvknDYZeCuXH9kRNaPuHEwvXDCk378o9xszmHg=

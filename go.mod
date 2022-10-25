@@ -3,7 +3,7 @@ module github.com/IgneousRed/EBitEngine
 go 1.19
 
 require (
-	github.com/IgneousRed/gomisc v0.0.0-20221020013713-24d41b831488 // indirect
+	github.com/IgneousRed/gomisc v0.0.0-20221025091651-64aad9d58f9a // indirect
 	github.com/ebitengine/purego v0.1.0 // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20221017161538-93cebf72946b // indirect
 	github.com/hajimehoshi/ebiten/v2 v2.4.8 // indirect
