@@ -33,12 +33,6 @@ func InitGame(name string, windowSize m.Vec[int], game eb.Game) {
 	eb.SetWindowSize(windowSize[0], windowSize[1])
 	m.FatalErr("", eb.RunGame(game))
 }
-func Vec2I(x, y int) m.Vec[int] {
-	return m.Vec[int]{x, y}
-}
-func Vec2F(x, y float32) m.Vec[float32] {
-	return m.Vec[float32]{x, y}
-}
 
 type Keys map[eb.Key]struct{}
 
