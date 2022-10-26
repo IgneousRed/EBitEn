@@ -22,7 +22,7 @@ func DrawTrianglesF(scr *eb.Image, vertices []m.Vec[float32], indices []uint16, 
 	verts := make([]eb.Vertex, len(vertices))
 	for i, v := range vertices {
 		verts[i].DstX = v[0]
-		verts[i].DstY = WindowSizeFY - v[1]
+		verts[i].DstY = windowSizeFY - v[1]
 		verts[i].ColorR = colorR
 		verts[i].ColorG = colorG
 		verts[i].ColorB = colorB

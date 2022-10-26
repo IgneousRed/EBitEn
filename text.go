@@ -33,8 +33,8 @@ func NewFont(path string, size float32) (Font, error) {
 	}
 }
 func DrawTextI(scr *eb.Image, font Font, txt string, pos m.Vec[int], clr Color) {
-	text.Draw(scr, txt, font.face, pos[0], WindowSizeY-pos[1], clr.Color())
+	text.Draw(scr, txt, font.face, pos[0], windowSizeIY-pos[1], clr.Color())
 }
 func DrawTextF(scr *eb.Image, font Font, txt string, pos m.Vec[float32], clr Color) {
-	text.Draw(scr, txt, font.face, int(pos[0]), WindowSizeY-int(pos[1]), clr.Color())
+	DrawTextI(scr, font, txt, pos.Int(), clr)
 }
