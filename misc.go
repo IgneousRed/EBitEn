@@ -23,14 +23,12 @@ var Yellow = Color{255, 255, 0, 255}
 var Cyan = Color{0, 255, 255, 255}
 var Magenta = Color{255, 0, 255, 255}
 
-var WindowSizeX, WindowSizeY int
-var WindowSizeFX, WindowSizeFY float32
+var windowSizeY float32
 
-func InitGame(name string, windowSizeX, windowSizeY int, game eb.Game) {
-	WindowSizeX, WindowSizeY = windowSizeX, windowSizeY
-	WindowSizeFX, WindowSizeFY = float32(windowSizeX), float32(windowSizeY)
+func InitGame(name string, windowSize m.Vec[int], game eb.Game) {
+	windowSizeY = float32(windowSize[1])
 	eb.SetWindowTitle(name)
-	eb.SetWindowSize(windowSizeX, windowSizeY)
+	eb.SetWindowSize(windowSize[0], windowSize[1])
 	m.FatalErr("", eb.RunGame(game))
 }
 func Vec2I(x, y int) m.Vec[int] {
