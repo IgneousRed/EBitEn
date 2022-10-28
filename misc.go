@@ -43,7 +43,13 @@ func GetKeys() Keys {
 	}
 	return result
 }
-func (k Keys) Pressed(key eb.Key) bool {
-	_, b := k[key]
-	return b
+
+// Returns true if any key is pressed
+func (k Keys) Pressed(keys ...eb.Key) bool {
+	for _, key := range keys {
+		if _, b := k[key]; b {
+			return true
+		}
+	}
+	return false
 }
