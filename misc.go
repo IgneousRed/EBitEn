@@ -34,20 +34,57 @@ func InitGame(name string, windowSize m.Vec[int], game eb.Game) {
 	m.FatalErr("", eb.RunGame(game))
 }
 
-type Keys map[eb.Key]struct{}
+var keysOld []eb.Key
+var keysDown map[eb.Key]struct{}
+var keysPressed map[eb.Key]struct{}
+var keysUp map[eb.Key]struct{}
 
-func GetKeys() Keys {
-	result := Keys{}
-	for _, k := range inpututil.AppendPressedKeys(nil) {
-		result[k] = struct{}{}
+// Run once per Update
+func KeysUpdate() {
+	keysNew := inpututil.AppendPressedKeys(nil)
+	keysDown = map[eb.Key]struct{}{}
+	for _, k := range keysNew {
+		if _, ok := keysPressed[k]; !ok {
+			keysDown[k] = struct{}{}
+		}
 	}
-	return result
+	keysPressed = map[eb.Key]struct{}{}
+	for _, k := range keysNew {
+		keysPressed[k] = struct{}{}
+	}
+	keysUp = map[eb.Key]struct{}{}
+	for _, k := range keysOld {
+		if _, ok := keysPressed[k]; !ok {
+			keysUp[k] = struct{}{}
+		}
+	}
+	keysOld = keysNew
+}
+
+// Returns true if any key was just pressed
+func KeysDown(keys ...eb.Key) bool {
+	for _, k := range keys {
+		if _, ok := keysDown[k]; ok {
+			return true
+		}
+	}
+	return false
 }
 
 // Returns true if any key is pressed
-func (k Keys) Pressed(keys ...eb.Key) bool {
-	for _, key := range keys {
-		if _, b := k[key]; b {
+func KeysPressed(keys ...eb.Key) bool {
+	for _, k := range keys {
+		if _, ok := keysPressed[k]; ok {
+			return true
+		}
+	}
+	return false
+}
+
+// Returns true if any key was just released
+func KeysUp(keys ...eb.Key) bool {
+	for _, k := range keys {
+		if _, ok := keysPressed[k]; ok {
 			return true
 		}
 	}
