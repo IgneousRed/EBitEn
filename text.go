@@ -1,4 +1,4 @@
-package ebitengine
+package EBitEn
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-module github.com/IgneousRed/EBitEngine
+module github.com/IgneousRed/EBitEn
 
 go 1.19
 
