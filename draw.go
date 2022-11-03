@@ -31,7 +31,8 @@ func DrawTrianglesF(vertices []m.Vec[float32], indices []uint16, clr Color) {
 	screen.DrawTriangles(verts, indices, emptyImg, &eb.DrawTrianglesOptions{})
 }
 func DrawTrianglesI(vertices []m.Vec[int], indices []uint16, clr Color) {
-	DrawTrianglesF(m.VecsToFloat32s(vertices), indices, clr)
+	verts := m.MapF(vertices, func(v m.Vec[int]) m.Vec[float32] { return v.Float32() })
+	DrawTrianglesF(verts, indices, clr)
 }
 func DrawLineF(a, b m.Vec[float32], thickness float32, clr Color) {
 	normal := b.Sub(a).Normalize().Rotate90().Mul1(thickness * .5)
