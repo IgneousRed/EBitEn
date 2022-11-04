@@ -28,7 +28,7 @@ func FontNew(path string) (Font, error) {
 	return result, nil
 }
 
-var fonts map[string]font.Face
+var fonts = map[string]font.Face{}
 
 func DrawTextI(f Font, size int, pos m.Vec[int], txt string, clr Color) {
 	str := fmt.Sprint(f.id, size)
