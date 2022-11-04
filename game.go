@@ -13,7 +13,7 @@ type Game interface {
 
 var windowSizeIX, windowSizeIY int
 var windowSizeFY float32
-var screen *eb.Image
+var Screen *eb.Image
 
 type gameInternal struct {
 	update func()
@@ -47,7 +47,7 @@ func (g *gameInternal) Update() error {
 }
 
 func (g *gameInternal) Draw(scr *eb.Image) {
-	screen = scr
+	Screen = scr
 	g.draw()
 }
 

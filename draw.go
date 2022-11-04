@@ -28,7 +28,7 @@ func DrawTrianglesF(vertices []m.Vec[float32], indices []uint16, clr Color) {
 		verts[i].ColorB = colorB
 		verts[i].ColorA = colorA
 	}
-	screen.DrawTriangles(verts, indices, emptyImg, &eb.DrawTrianglesOptions{})
+	Screen.DrawTriangles(verts, indices, emptyImg, &eb.DrawTrianglesOptions{})
 }
 func DrawTrianglesI(vertices []m.Vec[int], indices []uint16, clr Color) {
 	verts := m.MapF(vertices, func(v m.Vec[int]) m.Vec[float32] { return v.Float32() })
