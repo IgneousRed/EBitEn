@@ -44,6 +44,6 @@ func DrawTextI(f Font, size int, pos m.Vec[int], txt string, clr Color) {
 	}
 	text.Draw(Screen, txt, face, pos[0], windowSizeIY-pos[1], clr.Color())
 }
-func DrawTextF(font Font, size float32, pos m.Vec[float32], txt string, clr Color) {
+func DrawTextF(font Font, size float64, pos m.Vec[float64], txt string, clr Color) {
 	DrawTextI(font, int(size), pos.Int(), txt, clr)
 }

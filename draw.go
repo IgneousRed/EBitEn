@@ -14,13 +14,14 @@ func init() {
 	emptyImg.Fill(color.White)
 }
 
-func DrawTrianglesF(vertices []m.Vec[float32], indices []uint16, clr Color) {
+func DrawTrianglesF(vertices []m.Vec[float64], indices []uint16, clr Color) {
 	colorR := float32(clr.R) / 255
 	colorG := float32(clr.G) / 255
 	colorB := float32(clr.B) / 255
 	colorA := float32(clr.A) / 255
 	verts := make([]eb.Vertex, len(vertices))
 	for i, v := range vertices {
+		v := v.Float32()
 		verts[i].DstX = v[0]
 		verts[i].DstY = windowSizeFY - v[1]
 		verts[i].ColorR = colorR
@@ -31,12 +32,12 @@ func DrawTrianglesF(vertices []m.Vec[float32], indices []uint16, clr Color) {
 	Screen.DrawTriangles(verts, indices, emptyImg, &eb.DrawTrianglesOptions{})
 }
 func DrawTrianglesI(vertices []m.Vec[int], indices []uint16, clr Color) {
-	verts := m.MapF(vertices, func(v m.Vec[int]) m.Vec[float32] { return v.Float32() })
+	verts := m.MapF(vertices, func(v m.Vec[int]) m.Vec[float64] { return v.Float64() })
 	DrawTrianglesF(verts, indices, clr)
 }
-func DrawLineF(a, b m.Vec[float32], thickness float32, clr Color) {
+func DrawLineF(a, b m.Vec[float64], thickness float64, clr Color) {
 	normal := b.Sub(a).Normalize().Rotate90().Mul1(thickness * .5)
-	DrawTrianglesF([]m.Vec[float32]{
+	DrawTrianglesF([]m.Vec[float64]{
 		a.Sub(normal),
 		a.Add(normal),
 		b.Sub(normal),
@@ -44,24 +45,24 @@ func DrawLineF(a, b m.Vec[float32], thickness float32, clr Color) {
 	}, []uint16{0, 1, 2, 1, 2, 3}, clr)
 }
 func DrawLineI(a, b m.Vec[int], thickness int, clr Color) {
-	DrawLineF(a.Float32(), b.Float32(), float32(thickness), clr)
+	DrawLineF(a.Float64(), b.Float64(), float64(thickness), clr)
 }
-func DrawRectangleF(pos, size m.Vec[float32], clr Color) {
-	DrawTrianglesF([]m.Vec[float32]{
+func DrawRectangleF(pos, size m.Vec[float64], clr Color) {
+	DrawTrianglesF([]m.Vec[float64]{
 		pos,
-		pos.Add(m.Vec[float32]{size[0], 0}),
-		pos.Add(m.Vec[float32]{0, size[1]}),
-		pos.Add(m.Vec[float32]{size[0], size[1]}),
+		pos.Add(m.Vec[float64]{size[0], 0}),
+		pos.Add(m.Vec[float64]{0, size[1]}),
+		pos.Add(m.Vec[float64]{size[0], size[1]}),
 	}, []uint16{0, 1, 2, 1, 2, 3}, clr)
 }
 func DrawRectangleI(pos, size m.Vec[int], clr Color) {
-	DrawRectangleF(pos.Float32(), size.Float32(), clr)
+	DrawRectangleF(pos.Float64(), size.Float64(), clr)
 }
-func DrawCircleF(pos m.Vec[float32], size float32, points int, clr Color) {
-	verts := make([]m.Vec[float32], points)
+func DrawCircleF(pos m.Vec[float64], size float64, points int, clr Color) {
+	verts := make([]m.Vec[float64], points)
 	for i := range verts {
-		ang := float32(i) / float32(points) * math.Pi * 2
-		verts[i] = m.Vec[float32]{m.Cos(ang), m.Sin(ang)}.Mul1(size).Add(pos)
+		ang := float64(i) / float64(points) * math.Pi * 2
+		verts[i] = m.Vec[float64]{m.Cos(ang), m.Sin(ang)}.Mul1(size).Add(pos)
 	}
 	inds := make([]uint16, 0, (points-2)*3)
 	for i := 2; i < points; i++ {
@@ -70,5 +71,5 @@ func DrawCircleF(pos m.Vec[float32], size float32, points int, clr Color) {
 	DrawTrianglesF(verts, inds, clr)
 }
 func DrawCircleI(pos m.Vec[int], size int, points int, clr Color) {
-	DrawCircleF(pos.Float32(), float32(size), points, clr)
+	DrawCircleF(pos.Float64(), float64(size), points, clr)
 }
