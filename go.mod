@@ -1,9 +1,9 @@
-module github.com/IgneousRed/EBitEn
+module github.com/IgneousRed/EduTen
 
 go 1.19
 
 require (
-	github.com/IgneousRed/gomisc v0.0.0-20221113084638-89b9b7dee2b3 // indirect
+	github.com/IgneousRed/gomisc v0.0.0-20221113161440-eeb8cabd375a // indirect
 	github.com/ebitengine/purego v0.1.0 // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20221017161538-93cebf72946b // indirect
 	github.com/hajimehoshi/ebiten/v2 v2.4.8 // indirect

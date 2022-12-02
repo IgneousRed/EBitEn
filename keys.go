@@ -1,4 +1,4 @@
-package EBitEn
+package EduTen
 
 import eb "github.com/hajimehoshi/ebiten/v2"
 

@@ -1,4 +1,4 @@
-package EBitEn
+package EduTen
 
 import (
 	"fmt"

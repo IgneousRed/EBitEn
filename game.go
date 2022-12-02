@@ -1,4 +1,4 @@
-package EBitEn
+package EduTen
 
 import (
 	m "github.com/IgneousRed/gomisc"
