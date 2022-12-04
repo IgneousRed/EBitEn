@@ -12,7 +12,8 @@ type Game interface {
 }
 
 var windowSizeIX, windowSizeIY int
-var windowSizeFY float32
+var windowSizeY32 float32
+var windowSizeY64 float64
 var Screen *eb.Image
 
 type gameInternal struct {
@@ -55,13 +56,12 @@ func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 	return windowSizeIX, windowSizeIY
 }
 
-func InitGame(name string, windowSize m.Vec[int], game Game) {
-	windowSizeIX, windowSizeIY = windowSize[0], windowSize[1]
-	windowSizeFY = float32(windowSizeIY)
+func InitGame(name string, windowSize m.Vec2F, game Game) {
+	windowSizeIX, windowSizeIY = int(windowSize[0]), int(windowSize[1])
+	windowSizeY32, windowSizeY64 = float32(windowSizeIY), float64(windowSizeIY)
 	eb.SetWindowTitle(name)
-	eb.SetWindowSize(windowSize[0], windowSize[1])
+	eb.SetWindowSize(windowSizeIX, windowSizeIY)
 	a := gameInternal{}
-	a.update = game.Update
-	a.draw = game.Draw
+	a.update, a.draw = game.Update, game.Draw
 	m.FatalErr("", eb.RunGame(&a))
 }
