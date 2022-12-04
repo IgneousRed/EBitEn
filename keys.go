@@ -1,5 +1,7 @@
 package EduTen
 
+import m "github.com/IgneousRed/gomisc"
+
 // A Key represents a keyboard key.
 // These keys represent pysical keys of US keyboard.
 // For example, KeyQ represents Q key on US keyboards and ' (quote) key on Dvorak keyboards.
@@ -123,6 +125,7 @@ var keysOld []Key
 var keysDown map[Key]struct{}
 var keysPressed map[Key]struct{}
 var keysUp map[Key]struct{}
+var cursor m.Vec2F
 
 // Returns true if any key was just pressed
 func KeysDown(keys ...Key) bool {
@@ -152,4 +155,8 @@ func KeysUp(keys ...Key) bool {
 		}
 	}
 	return false
+}
+
+func Cursor() m.Vec2F {
+	return cursor
 }

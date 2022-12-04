@@ -11,7 +11,7 @@ type Game interface {
 	Draw()
 }
 
-var windowSizeIX, windowSizeIY int
+var windowSizeX, windowSizeY int
 var windowSizeY32 float32
 var windowSizeY64 float64
 var Screen *eb.Image
@@ -44,6 +44,10 @@ func (g *gameInternal) Update() error {
 	}
 	keysOld = keysNew
 
+	// updade cursor
+	x, y := eb.CursorPosition()
+	cursor = m.Vec2F{float64(x), float64(windowSizeY - y)}
+
 	// run user code
 	g.update()
 	return nil
@@ -55,14 +59,14 @@ func (g *gameInternal) Draw(scr *eb.Image) {
 }
 
 func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
-	return windowSizeIX, windowSizeIY
+	return windowSizeX, windowSizeY
 }
 
 func InitGame(name string, windowSize m.Vec2F, game Game) {
-	windowSizeIX, windowSizeIY = int(windowSize[0]), int(windowSize[1])
-	windowSizeY32, windowSizeY64 = float32(windowSizeIY), float64(windowSizeIY)
+	windowSizeX, windowSizeY = int(windowSize[0]), int(windowSize[1])
+	windowSizeY32, windowSizeY64 = float32(windowSizeY), float64(windowSizeY)
 	eb.SetWindowTitle(name)
-	eb.SetWindowSize(windowSizeIX, windowSizeIY)
+	eb.SetWindowSize(windowSizeX, windowSizeY)
 	a := gameInternal{}
 	a.update, a.draw = game.Update, game.Draw
 	m.FatalErr("", eb.RunGame(&a))
