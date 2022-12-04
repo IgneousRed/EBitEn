@@ -23,18 +23,20 @@ type gameInternal struct {
 
 func (g *gameInternal) Update() error {
 	// update keys
-	keysNew := inpututil.AppendPressedKeys(nil)
-	keysDown = map[eb.Key]struct{}{}
+	keysNew := m.MapF(inpututil.AppendPressedKeys(nil),
+		func(k eb.Key) Key { return Key(k) },
+	)
+	keysDown = map[Key]struct{}{}
 	for _, k := range keysNew {
 		if _, ok := keysPressed[k]; !ok {
 			keysDown[k] = struct{}{}
 		}
 	}
-	keysPressed = map[eb.Key]struct{}{}
+	keysPressed = map[Key]struct{}{}
 	for _, k := range keysNew {
 		keysPressed[k] = struct{}{}
 	}
-	keysUp = map[eb.Key]struct{}{}
+	keysUp = map[Key]struct{}{}
 	for _, k := range keysOld {
 		if _, ok := keysPressed[k]; !ok {
 			keysUp[k] = struct{}{}
