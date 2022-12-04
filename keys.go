@@ -33,33 +33,33 @@ const (
 	KeyX
 	KeyY
 	KeyZ
-	KeyAltLeft
-	KeyAltRight
-	KeyArrowDown
-	KeyArrowLeft
-	KeyArrowRight
-	KeyArrowUp
+	KeyAltL
+	KeyAltR
+	KeyDown
+	KeyLeft
+	KeyRight
+	KeyUp
 	KeyBackquote
 	KeyBackslash
 	KeyBackspace
-	KeyBracketLeft
-	KeyBracketRight
+	KeyBracketL
+	KeyBracketR
 	KeyCapsLock
 	KeyComma
 	KeyContextMenu
-	KeyControlLeft
-	KeyControlRight
+	KeyControlL
+	KeyControlR
 	KeyDelete
-	KeyDigit0
-	KeyDigit1
-	KeyDigit2
-	KeyDigit3
-	KeyDigit4
-	KeyDigit5
-	KeyDigit6
-	KeyDigit7
-	KeyDigit8
-	KeyDigit9
+	Key0
+	Key1
+	Key2
+	Key3
+	Key4
+	Key5
+	Key6
+	Key7
+	Key8
+	Key9
 	KeyEnd
 	KeyEnter
 	KeyEqual
@@ -78,27 +78,27 @@ const (
 	KeyF12
 	KeyHome
 	KeyInsert
-	KeyMetaLeft
-	KeyMetaRight
+	KeyMetaL
+	KeyMetaR
 	KeyMinus
 	KeyNumLock
-	KeyNumpad0
-	KeyNumpad1
-	KeyNumpad2
-	KeyNumpad3
-	KeyNumpad4
-	KeyNumpad5
-	KeyNumpad6
-	KeyNumpad7
-	KeyNumpad8
-	KeyNumpad9
-	KeyNumpadAdd
-	KeyNumpadDecimal
-	KeyNumpadDivide
-	KeyNumpadEnter
-	KeyNumpadEqual
-	KeyNumpadMultiply
-	KeyNumpadSubtract
+	KeyNP0
+	KeyNP1
+	KeyNP2
+	KeyNP3
+	KeyNP4
+	KeyNP5
+	KeyNP6
+	KeyNP7
+	KeyNP8
+	KeyNP9
+	KeyNPAdd
+	KeyNPDecimal
+	KeyNPDivide
+	KeyNPEnter
+	KeyNPEqual
+	KeyNPMultiply
+	KeyNPSubtract
 	KeyPageDown
 	KeyPageUp
 	KeyPause
@@ -107,8 +107,8 @@ const (
 	KeyQuote
 	KeyScrollLock
 	KeySemicolon
-	KeyShiftLeft
-	KeyShiftRight
+	KeyShiftL
+	KeyShiftR
 	KeySlash
 	KeySpace
 	KeyTab
