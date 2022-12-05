@@ -42,5 +42,5 @@ func DrawText(f Font, size float64, pos m.Vec2F, txt string, clr Color) {
 		})
 		fonts[str] = face
 	}
-	text.Draw(Screen, txt, face, int(pos.X), int(windowSizeY64-pos.Y), clr.Color())
+	text.Draw(Screen, txt, face, int(pos[0]), int(windowSizeY64-pos[1]), clr.Color())
 }

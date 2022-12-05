@@ -20,8 +20,8 @@ func DrawTriangles(vertices []m.Vec2F, indices []uint16, clr Color) {
 	colorA := float32(clr.A) / 255
 	verts := make([]eb.Vertex, len(vertices))
 	for i, v := range vertices {
-		verts[i].DstX = float32(v.X)
-		verts[i].DstY = windowSizeY32 - float32(v.Y)
+		verts[i].DstX = float32(v[0])
+		verts[i].DstY = windowSizeY32 - float32(v[1])
 		verts[i].ColorR = colorR
 		verts[i].ColorG = colorG
 		verts[i].ColorB = colorB
@@ -41,9 +41,9 @@ func DrawLine(a, b m.Vec2F, thickness float64, clr Color) {
 func DrawRectangle(pos, size m.Vec2F, clr Color) {
 	DrawTriangles([]m.Vec2F{
 		pos,
-		pos.Add(m.Vec2F{X: size.X, Y: 0}),
-		pos.Add(m.Vec2F{X: 0, Y: size.Y}),
-		pos.Add(m.Vec2F{X: size.X, Y: size.Y}),
+		pos.Add(m.Vec2F{size[0], 0}),
+		pos.Add(m.Vec2F{0, size[1]}),
+		pos.Add(m.Vec2F{size[0], size[1]}),
 	}, []uint16{0, 1, 2, 1, 2, 3}, clr)
 }
 func DrawCircle(pos m.Vec2F, size float64, points int, clr Color) {

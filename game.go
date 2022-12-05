@@ -46,7 +46,7 @@ func (g *gameInternal) Update() error {
 
 	// updade cursor
 	x, y := eb.CursorPosition()
-	cursor = m.Vec2F{X: float64(x), Y: float64(windowSizeY - y)}
+	cursor = m.Vec2F{float64(x), float64(windowSizeY - y)}
 
 	// run user code
 	g.update()
@@ -63,7 +63,7 @@ func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 }
 
 func InitGame(name string, windowSize m.Vec2F, game Game) {
-	windowSizeX, windowSizeY = int(windowSize.X), int(windowSize.Y)
+	windowSizeX, windowSizeY = int(windowSize[0]), int(windowSize[1])
 	windowSizeY32, windowSizeY64 = float32(windowSizeY), float64(windowSizeY)
 	eb.SetWindowTitle(name)
 	eb.SetWindowSize(windowSizeX, windowSizeY)
