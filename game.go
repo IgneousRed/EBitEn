@@ -64,5 +64,5 @@ func InitGame(name string, windowSize m.Vec2F, game Game) {
 	windowSizeY32 = float32(windowSizeY)
 	eb.SetWindowTitle(name)
 	eb.SetWindowSize(windowSizeX, windowSizeY)
-	m.FatalErr("", eb.RunGame(&gameInternal{game.Update, game.Draw}))
+	m.FatalErr(eb.RunGame(&gameInternal{game.Update, game.Draw}), "")
 }
