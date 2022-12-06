@@ -8,17 +8,15 @@ import (
 
 type Game interface {
 	Update()
-	Draw()
+	Draw(scr *eb.Image)
 }
 
 var windowSizeX, windowSizeY int
 var windowSizeY32 float32
-var windowSizeY64 float64
-var Screen *eb.Image
 
 type gameInternal struct {
 	update func()
-	draw   func()
+	draw   func(scr *eb.Image)
 }
 
 func (g *gameInternal) Update() error {
@@ -54,8 +52,7 @@ func (g *gameInternal) Update() error {
 }
 
 func (g *gameInternal) Draw(scr *eb.Image) {
-	Screen = scr
-	g.draw()
+	g.draw(scr)
 }
 
 func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
@@ -64,10 +61,8 @@ func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 
 func InitGame(name string, windowSize m.Vec2F, game Game) {
 	windowSizeX, windowSizeY = int(windowSize[0]), int(windowSize[1])
-	windowSizeY32, windowSizeY64 = float32(windowSizeY), float64(windowSizeY)
+	windowSizeY32 = float32(windowSizeY)
 	eb.SetWindowTitle(name)
 	eb.SetWindowSize(windowSizeX, windowSizeY)
-	a := gameInternal{}
-	a.update, a.draw = game.Update, game.Draw
-	m.FatalErr("", eb.RunGame(&a))
+	m.FatalErr("", eb.RunGame(&gameInternal{game.Update, game.Draw}))
 }
