@@ -8,7 +8,7 @@ import (
 
 type Game interface {
 	Update()
-	Draw(scr *eb.Image)
+	Draw(scr *Image)
 }
 
 var windowSizeX, windowSizeY int
@@ -16,7 +16,7 @@ var windowSizeY32 float32
 
 type gameInternal struct {
 	update func()
-	draw   func(scr *eb.Image)
+	draw   func(scr *Image)
 }
 
 func (g *gameInternal) Update() error {
@@ -51,7 +51,7 @@ func (g *gameInternal) Update() error {
 	return nil
 }
 
-func (g *gameInternal) Draw(scr *eb.Image) {
+func (g *gameInternal) Draw(scr *Image) {
 	g.draw(scr)
 }
 
