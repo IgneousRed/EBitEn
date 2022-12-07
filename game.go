@@ -21,30 +21,36 @@ type gameInternal struct {
 
 func (g *gameInternal) Update() error {
 	// update keys
-	keysNew := m.MapF(inpututil.AppendPressedKeys(nil),
-		func(k eb.Key) Key { return Key(k) },
-	)
-	keysDown = map[Key]struct{}{}
+	keysNew := inpututil.AppendPressedKeys(nil)
+	keysDown = [keyCount]bool{}
 	for _, k := range keysNew {
-		if _, ok := keysPressed[k]; !ok {
-			keysDown[k] = struct{}{}
-		}
+		keysDown[k] = !keysPressed[k]
 	}
-	keysPressed = map[Key]struct{}{}
+	keysPressed = [keyCount]bool{}
 	for _, k := range keysNew {
-		keysPressed[k] = struct{}{}
+		keysPressed[k] = true
 	}
-	keysUp = map[Key]struct{}{}
+	keysUp = [keyCount]bool{}
 	for _, k := range keysOld {
-		if _, ok := keysPressed[k]; !ok {
-			keysUp[k] = struct{}{}
-		}
+		keysDown[k] = !keysPressed[k]
 	}
 	keysOld = keysNew
 
-	// updade cursor
+	// update buttons
+	for b := Button(0); b < buttonCount; b++ {
+		new := eb.IsMouseButtonPressed(b)
+		buttonsDown[b] = new && !buttonsPressed[b]
+		buttonsUp[b] = !new && buttonsPressed[b]
+		buttonsPressed[b] = new
+	}
+
+	// update cursor
 	x, y := eb.CursorPosition()
-	cursor = m.Vec2F{float64(x), float64(windowSizeY - y)}
+	cursor = Vec2{float64(x), float64(windowSizeY - y)}
+
+	// update wheel
+	xf, yf := eb.Wheel()
+	cursor = Vec2{xf, yf}
 
 	// run user code
 	g.update()
@@ -59,7 +65,7 @@ func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 	return windowSizeX, windowSizeY
 }
 
-func InitGame(name string, windowSize m.Vec2F, game Game) {
+func InitGame(name string, windowSize Vec2, game Game) {
 	windowSizeX, windowSizeY = int(windowSize[0]), int(windowSize[1])
 	windowSizeY32 = float32(windowSizeY)
 	eb.SetWindowTitle(name)

@@ -1,11 +1,13 @@
 package EduTen
 
-import m "github.com/IgneousRed/gomisc"
+import (
+	eb "github.com/hajimehoshi/ebiten/v2"
+)
 
 // A Key represents a keyboard key.
 // These keys represent pysical keys of US keyboard.
 // For example, KeyQ represents Q key on US keyboards and ' (quote) key on Dvorak keyboards.
-type Key int
+type Key = eb.Key
 
 // Keys.
 const (
@@ -118,19 +120,35 @@ const (
 	KeyControl
 	KeyShift
 	KeyMeta
-	KeyMax Key = KeyMeta
+	KeyMax   = KeyMeta
+	keyCount = 109
+)
+
+// A Button represents a mouse button.
+type Button = eb.MouseButton
+
+// MouseButtons
+const (
+	ButtonL Button = iota
+	ButtonR
+	ButtonM
+	buttonCount = iota
 )
 
 var keysOld []Key
-var keysDown map[Key]struct{}
-var keysPressed map[Key]struct{}
-var keysUp map[Key]struct{}
-var cursor m.Vec2F
+var keysDown [keyCount]bool
+var keysPressed [keyCount]bool
+var keysUp [keyCount]bool
+var buttonsDown [buttonCount]bool
+var buttonsPressed [buttonCount]bool
+var buttonsUp [buttonCount]bool
+var cursor Vec2
+var wheel Vec2
 
 // Returns true if any key was just pressed
 func KeysDown(keys ...Key) bool {
 	for _, k := range keys {
-		if _, ok := keysDown[k]; ok {
+		if keysDown[k] {
 			return true
 		}
 	}
@@ -140,7 +158,7 @@ func KeysDown(keys ...Key) bool {
 // Returns true if any key is pressed
 func KeysPressed(keys ...Key) bool {
 	for _, k := range keys {
-		if _, ok := keysPressed[k]; ok {
+		if keysPressed[k] {
 			return true
 		}
 	}
@@ -150,13 +168,34 @@ func KeysPressed(keys ...Key) bool {
 // Returns true if any key was just released
 func KeysUp(keys ...Key) bool {
 	for _, k := range keys {
-		if _, ok := keysPressed[k]; ok {
+		if keysUp[k] {
 			return true
 		}
 	}
 	return false
 }
 
-func Cursor() m.Vec2F {
+// Returns true if button was just pressed
+func ButtonDown(button Button) bool {
+	return buttonsDown[button]
+}
+
+// Returns true if button is pressed
+func ButtonPressed(button Button) bool {
+	return buttonsPressed[button]
+}
+
+// Returns true if button was just released
+func ButtonUp(button Button) bool {
+	return buttonsUp[button]
+}
+
+// Returns current cursor position
+func Cursor() Vec2 {
 	return cursor
+}
+
+// Returns wheel movement since last Update
+func Wheel() Vec2 {
+	return wheel
 }

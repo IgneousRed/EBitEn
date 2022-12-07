@@ -7,7 +7,6 @@ import (
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 
-	m "github.com/IgneousRed/gomisc"
 	text "github.com/hajimehoshi/ebiten/v2/text"
 )
 
@@ -30,7 +29,7 @@ func FontNew(path string) (Font, error) {
 
 var fonts = map[string]font.Face{}
 
-func DrawText(scr *Image, f Font, size float64, pos m.Vec2F, txt string, clr Color) {
+func DrawText(scr *Image, f Font, size float64, pos Vec2, txt string, clr Color) {
 	str := fmt.Sprint(f.id, size)
 	face, ok := fonts[str]
 	if !ok {
