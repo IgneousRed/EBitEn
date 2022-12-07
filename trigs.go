@@ -6,41 +6,55 @@ type Trigs struct {
 	Verts Verts
 	Inds  Inds
 }
+type Transform struct {
+	Pos Vec2
+	Rot Rad
+	Scl float64
+}
 
-// Add `amount` to each point.
-func Translate(verts []Vec2, amount Vec2) []Vec2 {
-	result := make([]Vec2, len(verts))
-	for i, v := range verts {
-		result[i] = v.Add(amount)
+func TransformNew() Transform {
+	return Transform{Scl: 1}
+}
+
+// Add `amount` to each Vert.
+func (v Verts) Translate(amount Vec2) Verts {
+	result := make(Verts, len(v))
+	for i, p := range v {
+		result[i] = p.Add(amount)
 	}
 	return result
 }
 
-// Rotate every point around origin by `amount`.
-func Rotate(verts []Vec2, amount Rad) []Vec2 {
+// Rotate every Vert around origin by `amount`.
+func (v Verts) Rotate(amount Rad) Verts {
 	newX := amount.Vec2()
 	newY := newX.Rot90()
-	result := make([]Vec2, len(verts))
-	for i, v := range verts {
-		result[i] = newX.Mul1(v[0]).Add(newY.Mul1(v[1]))
+	result := make(Verts, len(v))
+	for i, p := range v {
+		result[i] = newX.Mul1(p[0]).Add(newY.Mul1(p[1]))
 	}
 	return result
 }
 
-// Multiply `amount` with each point.
-func Scale(verts []Vec2, amount Vec2) []Vec2 {
-	result := make([]Vec2, len(verts))
-	for i, v := range verts {
-		result[i] = v.Mul(amount)
+// Multiply `amount` with each Vert.
+func (v Verts) Scale(amount Vec2) Verts {
+	result := make(Verts, len(v))
+	for i, p := range v {
+		result[i] = p.Mul(amount)
 	}
 	return result
 }
 
-// Multiply `amount` with each point.
-func Scale1(verts []Vec2, amount float64) []Vec2 {
-	result := make([]Vec2, len(verts))
-	for i, v := range verts {
-		result[i] = v.Mul1(amount)
+// Multiply `amount` with each Vert.
+func (v Verts) Scale1(amount float64) Verts {
+	result := make(Verts, len(v))
+	for i, p := range v {
+		result[i] = p.Mul1(amount)
 	}
 	return result
+}
+
+// Multiply `amount` with each Vert.
+func (v Verts) Transform(trans Transform) Verts {
+	return v.Scale1(trans.Scl).Rotate(trans.Rot).Translate(trans.Pos)
 }
