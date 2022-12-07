@@ -11,13 +11,15 @@ type Game interface {
 	Draw(scr *Image)
 }
 
-var windowSizeX, windowSizeY int
-var windowSizeY32 float32
+var windowSize, windowHalf Vec2
 
 type gameInternal struct {
 	update func()
 	draw   func(scr *Image)
 }
+
+func WindowSize() Vec2 { return windowSize }
+func WindowHalf() Vec2 { return windowHalf }
 
 func (g *gameInternal) Update() error {
 	// update keys
@@ -46,11 +48,11 @@ func (g *gameInternal) Update() error {
 
 	// update cursor
 	x, y := eb.CursorPosition()
-	cursor = Vec2{float64(x), float64(windowSizeY - y)}
+	cursor = Vec2{float64(x), windowSize[1] - float64(y)}
 
 	// update wheel
 	xf, yf := eb.Wheel()
-	cursor = Vec2{xf, yf}
+	wheel = Vec2{xf, yf}
 
 	// run user code
 	g.update()
@@ -62,13 +64,12 @@ func (g *gameInternal) Draw(scr *Image) {
 }
 
 func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
-	return windowSizeX, windowSizeY
+	return int(windowSize[0]), int(windowSize[1])
 }
 
-func InitGame(name string, windowSize Vec2, game Game) {
-	windowSizeX, windowSizeY = int(windowSize[0]), int(windowSize[1])
-	windowSizeY32 = float32(windowSizeY)
+func InitGame(name string, size Vec2, game Game) {
+	windowSize = size
 	eb.SetWindowTitle(name)
-	eb.SetWindowSize(windowSizeX, windowSizeY)
+	eb.SetWindowSize(int(size[0]), int(size[1]))
 	m.FatalErr(eb.RunGame(&gameInternal{game.Update, game.Draw}), "")
 }

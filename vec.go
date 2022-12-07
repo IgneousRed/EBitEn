@@ -3,17 +3,11 @@ package EduTen
 import m "github.com/IgneousRed/gomisc"
 
 type Rad float64
-type Deg float64
 type Vec2 [2]float64
 
-// Convert to degrees.
-func (r Rad) Deg() Deg {
-	return Deg(r * m.Rad2Deg)
-}
-
-// Convert to radians.
-func (r Deg) Rad() Rad {
-	return Rad(r * m.Deg2Rad)
+// Angle in degrees.
+func Deg(value float64) Rad {
+	return Rad(value * m.Rad2Deg)
 }
 
 // Radian cosine.
@@ -21,19 +15,9 @@ func (r Rad) Cos() float64 {
 	return m.Cos(float64(r))
 }
 
-// Degree cosine.
-func (r Deg) Cos() float64 {
-	return m.Cos(float64(r.Rad()))
-}
-
 // Radian sine.
 func (r Rad) Sin() float64 {
 	return m.Sin(float64(r))
-}
-
-// Degree sine.
-func (r Deg) Sin() float64 {
-	return m.Sin(float64(r.Rad()))
 }
 
 // Are `v` and `other` identical.
@@ -132,19 +116,9 @@ func (a Rad) Vec2() Vec2 {
 	return Vec2{a.Cos(), a.Sin()}
 }
 
-// Angle to direction.
-func (a Deg) Vec2() Vec2 {
-	return Vec2{a.Cos(), a.Sin()}
-}
-
 // Direction to angle.
 func (v Vec2) Rad() Rad {
 	return Rad(m.Atan2(v[1], v[0]))
-}
-
-// Direction to angle.
-func (v Vec2) Deg() Deg {
-	return Rad(m.Atan2(v[1], v[0])).Deg()
 }
 
 // Floor `v` elements.
@@ -225,67 +199,13 @@ func (v Vec2) Rot90() Vec2 {
 }
 
 // Rotate `v` with angle `amount`.
-func (v Vec2) RotRad(amount Rad) Vec2 {
+func (v Vec2) Rot(amount Rad) Vec2 {
 	newX := amount.Vec2()
 	return newX.Rot90().Mul1(v[1]).Add(newX.Mul1(v[0]))
-}
-
-// Rotate `v` with angle `amount`.
-func (v Vec2) RotDeg(amount Deg) Vec2 {
-	return v.RotRad(amount.Rad())
 }
 
 // Reflect `v` on `norm`.
 // `norm` magnitude determines bounce magnitude.
 func (v Vec2) Reflect(norm Vec2) Vec2 {
 	return norm.Rot90().Norm().Project(v).Sub(norm.Project(v))
-}
-
-// Add `amount` to each point.
-func Translate(points []Vec2, amount Vec2) []Vec2 {
-	result := make([]Vec2, len(points))
-	for i, p := range points {
-		result[i] = p.Add(amount)
-	}
-	return result
-}
-
-// Rotate every point around origin by `amount`.
-func RotateRad(points []Vec2, amount Rad) []Vec2 {
-	newX := amount.Vec2()
-	newY := newX.Rot90()
-	result := make([]Vec2, len(points))
-	for i, p := range points {
-		result[i] = newX.Mul1(p[0]).Add(newY.Mul1(p[1]))
-	}
-	return result
-}
-
-// Rotate every point around origin by `amount`.
-func RotateDeg(points []Vec2, amount Deg) []Vec2 {
-	newX := amount.Vec2()
-	newY := newX.Rot90()
-	result := make([]Vec2, len(points))
-	for i, p := range points {
-		result[i] = newX.Mul1(p[0]).Add(newY.Mul1(p[1]))
-	}
-	return result
-}
-
-// Multiply `amount` with each point.
-func Scale(points []Vec2, amount Vec2) []Vec2 {
-	result := make([]Vec2, len(points))
-	for i, p := range points {
-		result[i] = p.Mul(amount)
-	}
-	return result
-}
-
-// Multiply `amount` with each point.
-func Scale1(points []Vec2, amount float64) []Vec2 {
-	result := make([]Vec2, len(points))
-	for i, p := range points {
-		result[i] = p.Mul1(amount)
-	}
-	return result
 }
