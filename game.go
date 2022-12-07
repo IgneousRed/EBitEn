@@ -32,7 +32,7 @@ func (g *gameInternal) Update() error {
 	}
 	keysUp = [keyCount]bool{}
 	for _, k := range keysOld {
-		keysDown[k] = !keysPressed[k]
+		keysUp[k] = !keysPressed[k]
 	}
 	keysOld = keysNew
 

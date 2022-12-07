@@ -128,12 +128,12 @@ func (v Vec2) Sum() float64 {
 }
 
 // Angle to direction.
-func (a Rad) Vec2F() Vec2 {
+func (a Rad) Vec2() Vec2 {
 	return Vec2{a.Cos(), a.Sin()}
 }
 
 // Angle to direction.
-func (a Deg) Vec2F() Vec2 {
+func (a Deg) Vec2() Vec2 {
 	return Vec2{a.Cos(), a.Sin()}
 }
 
@@ -226,7 +226,7 @@ func (v Vec2) Rot90() Vec2 {
 
 // Rotate `v` with angle `amount`.
 func (v Vec2) RotRad(amount Rad) Vec2 {
-	newX := amount.Vec2F()
+	newX := amount.Vec2()
 	return newX.Rot90().Mul1(v[1]).Add(newX.Mul1(v[0]))
 }
 
@@ -242,7 +242,7 @@ func (v Vec2) Reflect(norm Vec2) Vec2 {
 }
 
 // Add `amount` to each point.
-func TranslateVec2F(points []Vec2, amount Vec2) []Vec2 {
+func Translate(points []Vec2, amount Vec2) []Vec2 {
 	result := make([]Vec2, len(points))
 	for i, p := range points {
 		result[i] = p.Add(amount)
@@ -251,8 +251,8 @@ func TranslateVec2F(points []Vec2, amount Vec2) []Vec2 {
 }
 
 // Rotate every point around origin by `amount`.
-func RotateVec2FRad(points []Vec2, amount Rad) []Vec2 {
-	newX := amount.Vec2F()
+func RotateRad(points []Vec2, amount Rad) []Vec2 {
+	newX := amount.Vec2()
 	newY := newX.Rot90()
 	result := make([]Vec2, len(points))
 	for i, p := range points {
@@ -262,8 +262,8 @@ func RotateVec2FRad(points []Vec2, amount Rad) []Vec2 {
 }
 
 // Rotate every point around origin by `amount`.
-func RotateVec2FDeg(points []Vec2, amount Deg) []Vec2 {
-	newX := amount.Vec2F()
+func RotateDeg(points []Vec2, amount Deg) []Vec2 {
+	newX := amount.Vec2()
 	newY := newX.Rot90()
 	result := make([]Vec2, len(points))
 	for i, p := range points {
@@ -273,7 +273,7 @@ func RotateVec2FDeg(points []Vec2, amount Deg) []Vec2 {
 }
 
 // Multiply `amount` with each point.
-func ScaleVec2F(points []Vec2, amount Vec2) []Vec2 {
+func Scale(points []Vec2, amount Vec2) []Vec2 {
 	result := make([]Vec2, len(points))
 	for i, p := range points {
 		result[i] = p.Mul(amount)
@@ -282,7 +282,7 @@ func ScaleVec2F(points []Vec2, amount Vec2) []Vec2 {
 }
 
 // Multiply `amount` with each point.
-func Scale1Vec2F(points []Vec2, amount float64) []Vec2 {
+func Scale1(points []Vec2, amount float64) []Vec2 {
 	result := make([]Vec2, len(points))
 	for i, p := range points {
 		result[i] = p.Mul1(amount)

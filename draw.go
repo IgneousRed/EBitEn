@@ -52,7 +52,7 @@ func DrawCircle(scr *Image, pos Vec2, size float64, points int, clr Color) {
 	verts := make([]Vec2, points)
 	for i := range verts {
 		verts[i] = Rad(m.Tau * float64(i) / float64(points)).
-			Vec2F().Mul1(size).Add(pos)
+			Vec2().Mul1(size).Add(pos)
 	}
 	inds := make([]uint16, 0, (points-2)*3)
 	for i := 2; i < points; i++ {
