@@ -20,8 +20,8 @@ func DrawTriangles(scr *Image, trigs Trigs, clr Color) {
 	colorG := float32(clr.G) / 255
 	colorB := float32(clr.B) / 255
 	colorA := float32(clr.A) / 255
-	verts := make([]eb.Vertex, len(trigs.verts))
-	for i, v := range trigs.verts {
+	verts := make([]eb.Vertex, len(trigs.Verts))
+	for i, v := range trigs.Verts {
 		verts[i].DstX = float32(v[0])
 		verts[i].DstY = float32(windowSize[1] - v[1])
 		verts[i].ColorR = colorR
@@ -29,7 +29,7 @@ func DrawTriangles(scr *Image, trigs Trigs, clr Color) {
 		verts[i].ColorB = colorB
 		verts[i].ColorA = colorA
 	}
-	scr.DrawTriangles(verts, trigs.inds, emptyImg, &eb.DrawTrianglesOptions{})
+	scr.DrawTriangles(verts, trigs.Inds, emptyImg, &eb.DrawTrianglesOptions{})
 }
 func DrawRectangle(scr *Image, pos, size Vec2, clr Color) {
 	DrawTriangles(scr, Trigs{[]Vec2{

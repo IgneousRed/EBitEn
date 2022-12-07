@@ -3,8 +3,8 @@ package EduTen
 type Verts []Vec2
 type Inds []uint16
 type Trigs struct {
-	verts Verts
-	inds  Inds
+	Verts Verts
+	Inds  Inds
 }
 
 // Add `amount` to each point.

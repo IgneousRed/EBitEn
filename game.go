@@ -68,7 +68,7 @@ func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 }
 
 func InitGame(name string, size Vec2, game Game) {
-	windowSize = size
+	windowSize, windowHalf = size, size.Div1(2)
 	eb.SetWindowTitle(name)
 	eb.SetWindowSize(int(size[0]), int(size[1]))
 	m.FatalErr(eb.RunGame(&gameInternal{game.Update, game.Draw}), "")

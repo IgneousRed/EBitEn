@@ -6,6 +6,9 @@ type Cam struct {
 	scl float64
 }
 
+func (c Cam) Pos() Vec2    { return c.pos.Neg() }
+func (c Cam) Rot() Rad     { return -c.rot }
+func (c Cam) Scl() float64 { return 1 / c.scl }
 func (c *Cam) Transform(pos Vec2, rot Rad, scl float64) {
 	c.rot, c.scl = -rot, 1/scl
 	c.pos = pos.Sub(windowHalf).Rot(rot).Mul1(scl).Add(windowHalf)
@@ -23,7 +26,7 @@ func (c Cam) Vec2(v Vec2) Vec2 {
 	return v.Mul1(c.scl).Rot(c.rot).Add(c.pos)
 }
 func (c Cam) DrawTriangles(scr *Image, trigs Trigs, clr Color) {
-	trigs.verts = c.Verts(trigs.verts)
+	trigs.Verts = c.Verts(trigs.Verts)
 	DrawTriangles(scr, trigs, clr)
 }
 func (c Cam) DrawLine(scr *Image, a, b Vec2, thickness float64, clr Color) {
