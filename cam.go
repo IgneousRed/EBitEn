@@ -11,13 +11,19 @@ func (c Cam) Pos() Vec2    { return c.trans.Pos.Sub(windowHalf).Neg() }
 func (c Cam) Rot() Rad     { return -c.trans.Rot }
 func (c Cam) Scl() float64 { return 1 / c.trans.Scl }
 func (c *Cam) TransformAbsolute(pos Vec2, rot Rad, scl float64) {
+	c.trans.Pos = windowHalf.Sub(pos)
 	c.trans.Rot, c.trans.Scl = -rot, 1/scl
-	c.trans.Pos = pos.Neg().Add(windowHalf)
 }
 func (c *Cam) TransformRelative(pos Vec2, rot Rad, scl float64) {
 	sclRcp := 1 / scl
+	for i := range c.trans.Pos {
+		c.trans.Pos[i] -= windowHalf[i] + pos[i]
+	}
+	c.trans.Pos = c.trans.Pos.Rot(-rot)
+	for i, p := range c.trans.Pos {
+		c.trans.Pos[i] = p*sclRcp + windowHalf[i]
+	}
 	c.trans.Rot, c.trans.Scl = c.trans.Rot-rot, c.trans.Scl*sclRcp
-	c.trans.Pos = c.trans.Pos.Sub(windowHalf).Sub(pos).Rot(-rot).Mul1(sclRcp).Add(windowHalf)
 }
 func (c Cam) Verts(v Verts) Verts {
 	return v.Transform(c.trans)
