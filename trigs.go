@@ -56,5 +56,9 @@ func (v Verts) Scale1(amount float64) Verts {
 
 // Multiply `amount` with each Vert.
 func (v Verts) Transform(trans Transform) Verts {
-	return v.Scale1(trans.Scl).Rotate(trans.Rot).Translate(trans.Pos)
+	result := make(Verts, len(v))
+	for i, p := range v {
+		result[i] = p.Mul1(trans.Scl).Rot(trans.Rot).Add(trans.Pos)
+	}
+	return result
 }

@@ -136,14 +136,9 @@ const (
 )
 
 var keysOld []Key
-var keysDown [keyCount]bool
-var keysPressed [keyCount]bool
-var keysUp [keyCount]bool
-var buttonsDown [buttonCount]bool
-var buttonsPressed [buttonCount]bool
-var buttonsUp [buttonCount]bool
-var cursor Vec2
-var wheel Vec2
+var keysDown, keysPressed, keysUp [keyCount]bool
+var buttonsDown, buttonsPressed, buttonsUp [buttonCount]bool
+var cursor, wheel Vec2
 
 // Returns true if any key was just pressed
 func KeysDown(keys ...Key) bool {

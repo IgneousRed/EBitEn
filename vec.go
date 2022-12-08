@@ -7,7 +7,7 @@ type Vec2 [2]float64
 
 // Angle in degrees.
 func Deg(value float64) Rad {
-	return Rad(value * m.Rad2Deg)
+	return Rad(value * m.Deg2Rad)
 }
 
 // Radian cosine.

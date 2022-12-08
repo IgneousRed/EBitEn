@@ -1,24 +1,23 @@
 package EduTen
 
 type Cam struct {
-	pos   Vec2
-	rot   Rad
-	scl   float64
 	trans Transform
 }
 
-func (c Cam) Pos() Vec2    { return c.pos }
-func (c Cam) Rot() Rad     { return c.rot }
-func (c Cam) Scl() float64 { return c.scl }
-func (c *Cam) TransformSet(pos Vec2, rot Rad, scl float64) {
-	c.pos, c.rot, c.scl = pos, rot, scl
-	c.trans.Rot, c.trans.Scl = -rot, 1/scl
-	c.trans.Pos = pos.Sub(windowHalf).Rot(rot).Mul1(scl).Add(windowHalf)
+func CamNew() Cam {
+	return Cam{trans: Transform{Pos: windowHalf, Scl: 1}}
 }
-func (c *Cam) TransformChange(pos Vec2, rot Rad, scl float64) {
-	c.pos, c.rot, c.scl = c.pos.Add(pos), c.rot+rot, c.scl*scl
-	c.trans.Rot, c.trans.Scl = -c.rot, 1/c.scl
-	c.trans.Pos = c.pos.Sub(windowHalf).Rot(c.rot).Mul1(c.scl).Add(windowHalf)
+func (c Cam) Pos() Vec2    { return c.trans.Pos.Sub(windowHalf).Neg() }
+func (c Cam) Rot() Rad     { return -c.trans.Rot }
+func (c Cam) Scl() float64 { return 1 / c.trans.Scl }
+func (c *Cam) TransformAbsolute(pos Vec2, rot Rad, scl float64) {
+	c.trans.Rot, c.trans.Scl = -rot, 1/scl
+	c.trans.Pos = pos.Neg().Add(windowHalf)
+}
+func (c *Cam) TransformRelative(pos Vec2, rot Rad, scl float64) {
+	sclRcp := 1 / scl
+	c.trans.Rot, c.trans.Scl = c.trans.Rot-rot, c.trans.Scl*sclRcp
+	c.trans.Pos = c.trans.Pos.Sub(windowHalf).Sub(pos).Rot(-rot).Mul1(sclRcp).Add(windowHalf)
 }
 func (c Cam) Verts(v Verts) Verts {
 	return v.Transform(c.trans)
