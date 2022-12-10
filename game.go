@@ -16,6 +16,27 @@ type gameInternal struct {
 	draw   func(scr *Image)
 }
 
+// Mode in which a user resizes the window.
+//
+// Regardless of the resizing mode, an Ebiten application can still change the window size or make
+// the window fullscreen by calling Ebiten functions.
+type WindowResizing = eb.WindowResizingModeType
+
+// WindowResizingModeTypes
+const (
+	// Disallow resizing the window by a user.
+	WRDisabled WindowResizing = WindowResizing(eb.WindowResizingModeDisabled)
+
+	// Disallow resizing the window,
+	// but allow to make the window fullscreen by a user.
+	// This works only on macOS so far.
+	// On the other platforms, this is the same as WindowResizingModeDisabled.
+	WROnlyFullscreen WindowResizing = WindowResizing(eb.WindowResizingModeOnlyFullscreenEnabled)
+
+	// Allow resizing the window by a user.
+	WREnabled WindowResizing = WindowResizing(eb.WindowResizingModeEnabled)
+)
+
 var windowSizeOld, windowHalfOld Vec2
 var windowSize, windowHalf Vec2
 
@@ -26,6 +47,22 @@ func WindowHalf() Vec2    { return windowHalf }
 
 func WindowSizeSet(size Vec2) {
 	eb.SetWindowSize(int(size[0]), int(size[1]))
+}
+
+func WindowMinimize() {
+	eb.MinimizeWindow()
+}
+
+func WindowMaximize() {
+	eb.MaximizeWindow()
+}
+
+func WindowResizingSet(mode WindowResizing) {
+	eb.SetWindowResizingMode(mode)
+}
+
+func WindowTitleSet(title string) {
+	eb.SetWindowTitle(title)
 }
 
 func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
@@ -81,10 +118,6 @@ func (g *gameInternal) Update() error {
 
 func (g *gameInternal) Draw(scr *Image) {
 	g.draw(scr)
-}
-
-func WindowTitleSet(title string) {
-	eb.SetWindowTitle(title)
 }
 
 func Run(game Game) {
