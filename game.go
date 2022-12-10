@@ -11,19 +11,37 @@ type Game interface {
 	Draw(scr *Image)
 }
 
-func WindowSize() Vec2 { return screenSize }
-func WindowHalf() Vec2 { return screenHalf }
-
-var screenSize, screenHalf Vec2
-var screenCB []func(size, half Vec2)
-
 type gameInternal struct {
 	update func()
 	draw   func(scr *Image)
 }
 
+var windowSizeOld, windowHalfOld Vec2
+var windowSize, windowHalf Vec2
+
+func WindowSizeOld() Vec2 { return windowSizeOld }
+func WindowHalfOld() Vec2 { return windowHalfOld }
+func WindowSize() Vec2    { return windowSize }
+func WindowHalf() Vec2    { return windowHalf }
+
+func WindowSizeSet(size Vec2) {
+	eb.SetWindowSize(int(size[0]), int(size[1]))
+}
+
+func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
+	// window size
+	windowSizeOld, windowHalfOld = windowSize, windowHalf
+	windowSize = Vec2{float64(outsideX), float64(outsideY)}
+	windowHalf = windowSize.Div1(2)
+
+	// camera
+	camPos = camPos.Sub(windowHalfOld).Add(windowHalf)
+
+	return outsideX, outsideY
+}
+
 func (g *gameInternal) Update() error {
-	// update keys
+	// keys
 	keysNew := inpututil.AppendPressedKeys(nil)
 	keysDown = [keyCount]bool{}
 	for _, k := range keysNew {
@@ -39,7 +57,7 @@ func (g *gameInternal) Update() error {
 	}
 	keysOld = keysNew
 
-	// update buttons
+	// buttons
 	for b := Button(0); b < buttonCount; b++ {
 		new := eb.IsMouseButtonPressed(b)
 		buttonsDown[b] = new && !buttonsPressed[b]
@@ -47,37 +65,22 @@ func (g *gameInternal) Update() error {
 		buttonsPressed[b] = new
 	}
 
-	// update cursor
+	// cursor
 	x, y := eb.CursorPosition()
-	cursor = Vec2{float64(x), screenSize[1] - float64(y)}
+	cursor = Vec2{float64(x), windowSize[1] - float64(y)}
 
-	// update wheel
+	// wheel
 	xf, yf := eb.Wheel()
 	wheel = Vec2{xf, yf}
 
-	// run user code
+	// user code
 	g.update()
+
 	return nil
 }
 
 func (g *gameInternal) Draw(scr *Image) {
 	g.draw(scr)
-}
-
-func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
-	size := Vec2{float64(outsideX), float64(outsideY)}
-	if size != screenSize {
-		half := size.Div1(2)
-		for _, cb := range screenCB {
-			cb(size, half)
-		}
-		screenSize, screenHalf = size, half
-	}
-	return outsideX, outsideY
-}
-
-func WindowSizeSet(size Vec2) {
-	eb.SetWindowSize(int(size[0]), int(size[1]))
 }
 
 func WindowTitleSet(title string) {

@@ -23,7 +23,7 @@ func DrawTriangles(scr *Image, trigs Trigs, clr Color) {
 	verts := make([]eb.Vertex, len(trigs.Verts))
 	for i, v := range trigs.Verts {
 		verts[i].DstX = float32(v[0])
-		verts[i].DstY = float32(screenSize[1] - v[1])
+		verts[i].DstY = float32(windowSize[1] - v[1])
 		verts[i].ColorR = colorR
 		verts[i].ColorG = colorG
 		verts[i].ColorB = colorB
