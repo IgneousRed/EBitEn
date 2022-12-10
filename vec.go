@@ -2,23 +2,8 @@ package EduTen
 
 import m "github.com/IgneousRed/gomisc"
 
-type Rad float64
 type Vec2 [2]float64
-
-// Angle in degrees.
-func Deg(value float64) Rad {
-	return Rad(value * m.Deg2Rad)
-}
-
-// Radian cosine.
-func (r Rad) Cos() float64 {
-	return m.Cos(float64(r))
-}
-
-// Radian sine.
-func (r Rad) Sin() float64 {
-	return m.Sin(float64(r))
-}
+type Rad float64
 
 // Are `v` and `other` identical.
 func (v Vec2) Eq(other Vec2) bool {
@@ -111,16 +96,6 @@ func (v Vec2) Sum() float64 {
 	return v[0] + v[1]
 }
 
-// Angle to direction.
-func (a Rad) Vec2() Vec2 {
-	return Vec2{a.Cos(), a.Sin()}
-}
-
-// Direction to angle.
-func (v Vec2) Rad() Rad {
-	return Rad(m.Atan2(v[1], v[0]))
-}
-
 // Floor `v` elements.
 func (v Vec2) Floor() Vec2 {
 	return Vec2{m.Floor(v[0]), m.Floor(v[1])}
@@ -159,11 +134,6 @@ func (v Vec2) Dot(other Vec2) float64 {
 	return v.Mul(other).Sum()
 }
 
-// Angle from `v` to `other`.
-func (v Vec2) AngTo(other Vec2) Rad {
-	return other.Sub(v).Rad()
-}
-
 // Clamps `v` magnitude.
 func (v Vec2) ClampMag(max float64) Vec2 {
 	if v.Mag() > max {
@@ -174,11 +144,10 @@ func (v Vec2) ClampMag(max float64) Vec2 {
 
 // Distance between `v` and `other`.
 func (v Vec2) Dst(other Vec2) float64 {
-	return other.Sub(v).Mag()
+	return v.Sub(other).Mag()
 }
 
 // Move `v` towards `other` by `dlt`.
-// `dlt` must be >= 0.
 func (v Vec2) MoveTowards(other Vec2, dlt float64) Vec2 {
 	offset := other.Sub(v)
 	dst := offset.Mag()
@@ -198,14 +167,44 @@ func (v Vec2) Rot90() Vec2 {
 	return Vec2{-v[1], v[0]}
 }
 
+// Reflect `v` on normal `norm`.
+// `norm` should also be normalized.
+func (v Vec2) Reflect(norm Vec2) Vec2 {
+	return norm.Rot90().Project(v).Sub(norm.Project(v))
+}
+
+// Angle in degrees.
+func Deg(value float64) Rad {
+	return Rad(value * m.Deg2Rad)
+}
+
+// Radian cosine.
+func (r Rad) Cos() float64 {
+	return m.Cos(float64(r))
+}
+
+// Radian sine.
+func (r Rad) Sin() float64 {
+	return m.Sin(float64(r))
+}
+
+// Angle to direction.
+func (a Rad) Vec2() Vec2 {
+	return Vec2{a.Cos(), a.Sin()}
+}
+
+// Direction to angle.
+func (v Vec2) Rad() Rad {
+	return Rad(m.Atan2(v[1], v[0]))
+}
+
+// Angle from `v` to `other`.
+func (v Vec2) AngTo(other Vec2) Rad {
+	return other.Sub(v).Rad()
+}
+
 // Rotate `v` with angle `amount`.
 func (v Vec2) Rot(amount Rad) Vec2 {
 	newX := amount.Vec2()
 	return newX.Rot90().Mul1(v[1]).Add(newX.Mul1(v[0]))
-}
-
-// Reflect `v` on `norm`.
-// `norm` magnitude determines bounce magnitude.
-func (v Vec2) Reflect(norm Vec2) Vec2 {
-	return norm.Rot90().Norm().Project(v).Sub(norm.Project(v))
 }
