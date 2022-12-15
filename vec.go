@@ -9,7 +9,7 @@ type Rad float64
 
 // New Vector2.
 func Vec2(x, y float64) Vector2 {
-	return Vec2(x, y)
+	return Vector2{x, y}
 }
 
 // Are `v` and `other` identical.
