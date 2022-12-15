@@ -1,6 +1,6 @@
 package EduTen
 
-type Verts []Vec2
+type Verts []Vector2
 type Inds []uint16
 type Trigs struct {
 	Verts Verts
@@ -46,25 +46,36 @@ type Trigs struct {
 // }
 
 // Multiply `amount` with each Vert.
-func (v Verts) Transform(pos Vec2, rot Rad, scl Vec2) Verts {
+func (v Verts) Transform(pos Vector2, rot Rad, scl Vector2) Verts {
+	// return m.MapF(v, func(p Vec2) Vec2 {
+	// 	return p.Mul(scl).Rot(rot).Add(pos)
+	// })
 	result := make(Verts, len(v))
 	for i, p := range v {
+		// x, y := p[0]*scl[0], p[1]*scl[1]
 		result[i] = p.Mul(scl).Rot(rot).Add(pos)
 	}
 	return result
 }
 
 // Multiply `amount` with each Vert.
-func (t Verts) Transform1(pos Vec2, rot Rad, scl float64) Verts {
-	result := make(Verts, len(t))
-	for i, p := range t {
+func (v Verts) Transform1(pos Vector2, rot Rad, scl float64) Verts {
+	// return m.MapF(v, func(p Vec2) Vec2 {
+	// 	return p.Mul1(scl).Rot(rot).Add(pos)
+	// })
+	result := make(Verts, len(v))
+	for i, p := range v {
 		result[i] = p.Mul1(scl).Rot(rot).Add(pos)
 	}
 	return result
 }
 
 // Multiply `amount` with each Vert.
-func (t Trigs) Transform(pos Vec2, rot Rad, scl Vec2) Trigs {
+func (t Trigs) Transform(pos Vector2, rot Rad, scl Vector2) Trigs {
+	// t.Verts = m.MapF(t.Verts, func(p Vec2) Vec2 {
+	// 	return p.Mul(scl).Rot(rot).Add(pos)
+	// })
+	// return t
 	result := Trigs{make(Verts, len(t.Verts)), t.Inds}
 	for i, p := range t.Verts {
 		result.Verts[i] = p.Mul(scl).Rot(rot).Add(pos)
@@ -73,7 +84,11 @@ func (t Trigs) Transform(pos Vec2, rot Rad, scl Vec2) Trigs {
 }
 
 // Multiply `amount` with each Vert.
-func (t Trigs) Transform1(pos Vec2, rot Rad, scl float64) Trigs {
+func (t Trigs) Transform1(pos Vector2, rot Rad, scl float64) Trigs {
+	// t.Verts = m.MapF(t.Verts, func(p Vec2) Vec2 {
+	// 	return p.Mul1(scl).Rot(rot).Add(pos)
+	// })
+	// return t
 	result := Trigs{make(Verts, len(t.Verts)), t.Inds}
 	for i, p := range t.Verts {
 		result.Verts[i] = p.Mul1(scl).Rot(rot).Add(pos)

@@ -29,7 +29,7 @@ func FontNew(path string) (Font, error) {
 
 var fonts = map[string]font.Face{}
 
-func DrawText(scr *Image, f Font, size float64, pos Vec2, txt string, clr Color) {
+func DrawText(scr *Image, f Font, size float64, pos Vector2, txt string, clr Color) {
 	str := fmt.Sprint(f.id, size)
 	face, ok := fonts[str]
 	if !ok {
@@ -41,5 +41,5 @@ func DrawText(scr *Image, f Font, size float64, pos Vec2, txt string, clr Color)
 		})
 		fonts[str] = face
 	}
-	text.Draw(scr, txt, face, int(pos[0]), int(windowSize[1]-pos[1]), clr.Color())
+	text.Draw(scr, txt, face, int(pos.X), int(windowSize.Y-pos.Y), clr.Color())
 }
