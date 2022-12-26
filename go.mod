@@ -3,7 +3,7 @@ module github.com/IgneousRed/EduTen
 go 1.19
 
 require (
-	github.com/IgneousRed/gomisc v0.0.0-20221226004602-f2532bc69799
+	github.com/IgneousRed/gomisc v0.0.0-20221226231600-be46d7a023be
 	github.com/hajimehoshi/ebiten/v2 v2.4.13
 	golang.org/x/image v0.1.0
 )

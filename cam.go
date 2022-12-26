@@ -9,17 +9,17 @@ func Cam() (pos v2, rot rad, scl f64) {
 }
 func CamSet(pos v2, rot rad, scl f64) {
 	camPos = windowHalf.Sub(pos)
-	camPos.X = windowHalf.X - pos.X
-	camPos.Y = windowHalf.Y - pos.Y
+	camPos[0] = windowHalf[0] - pos[0]
+	camPos[1] = windowHalf[1] - pos[1]
 	camRot, camScl = -rot, 1/scl
 }
 func CamTrans(pos v2, rot rad, scl f64) {
 	sclRcp := 1 / scl
-	camPos.X = (camPos.X - windowHalf.X) * sclRcp
-	camPos.Y = (camPos.Y - windowHalf.Y) * sclRcp
+	camPos[0] = (camPos[0] - windowHalf[0]) * sclRcp
+	camPos[1] = (camPos[1] - windowHalf[1]) * sclRcp
 	camPos = camPos.Rot(-rot)
-	camPos.X += windowHalf.X - pos.X
-	camPos.Y += windowHalf.Y - pos.Y
+	camPos[0] += windowHalf[0] - pos[0]
+	camPos[1] += windowHalf[1] - pos[1]
 	camRot, camScl = camRot-rot, camScl*sclRcp
 }
 func CamVerts(v Verts) Verts {

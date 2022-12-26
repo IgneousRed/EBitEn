@@ -46,7 +46,7 @@ func WindowSize() v2    { return windowSize }
 func WindowHalf() v2    { return windowHalf }
 
 func WindowSizeSet(size v2) {
-	eb.SetWindowSize(int(size.X), int(size.Y))
+	eb.SetWindowSize(int(size[0]), int(size[1]))
 }
 
 func WindowMinimize() {
@@ -104,7 +104,7 @@ func (g *gameInternal) Update() error {
 
 	// cursor
 	x, y := eb.CursorPosition()
-	cursor = V2(f64(x), windowSize.Y-f64(y))
+	cursor = V2(f64(x), windowSize[1]-f64(y))
 
 	// wheel
 	_, yf := eb.Wheel()
