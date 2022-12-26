@@ -38,6 +38,6 @@ func CamDrawLine(scr *Image, a, b Vec2, thickness f64, clr Color) {
 func CamDrawRectangle(scr *Image, pos, size Vec2, clr Color) {
 	DrawRectangle(scr, CamVec2(pos), size.Mul1(camScl), clr)
 }
-func CamDrawCircle(scr *Image, pos Vec2, size f64, points si, clr Color) {
+func CamDrawCircle(scr *Image, pos Vec2, size f64, points int, clr Color) {
 	DrawCircle(scr, CamVec2(pos), size*camScl, points, clr)
 }

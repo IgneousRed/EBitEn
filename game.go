@@ -46,7 +46,7 @@ func WindowSize() Vec2    { return windowSize }
 func WindowHalf() Vec2    { return windowHalf }
 
 func WindowSizeSet(size Vec2) {
-	eb.SetWindowSize(si(size.X), si(size.Y))
+	eb.SetWindowSize(int(size.X), int(size.Y))
 }
 
 func WindowMinimize() {
@@ -65,7 +65,7 @@ func WindowTitleSet(title string) {
 	eb.SetWindowTitle(title)
 }
 
-func (g *gameInternal) Layout(outsideX, outsideY si) (screenX, screenY si) {
+func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 	// window size
 	windowSizeOld, windowHalfOld = windowSize, windowHalf
 	windowSize = V2(f64(outsideX), f64(outsideY))

@@ -13,7 +13,7 @@ import (
 var fontId = 0
 
 type Font struct {
-	id   si
+	id   int
 	data []byte
 }
 
@@ -41,5 +41,5 @@ func DrawText(scr *Image, f Font, size f64, pos Vec2, txt string, clr Color) {
 		})
 		fonts[str] = face
 	}
-	text.Draw(scr, txt, face, si(pos.X), si(windowSize.Y-pos.Y), clr.Color())
+	text.Draw(scr, txt, face, int(pos.X), int(windowSize.Y-pos.Y), clr.Color())
 }
