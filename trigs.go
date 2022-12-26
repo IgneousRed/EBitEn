@@ -1,6 +1,13 @@
 package EduTen
 
-type Verts []Vector2
+import m "github.com/IgneousRed/gomisc"
+
+type Rad = m.Rad
+type Vec2 = m.Vector2
+
+var V2 = m.Vec2
+
+type Verts []Vec2
 type Inds []uint16
 type Trigs struct {
 	Verts Verts
@@ -46,10 +53,11 @@ type Trigs struct {
 // }
 
 // Multiply `amount` with each Vert.
-func (v Verts) Transform(pos Vector2, rot Rad, scl Vector2) Verts {
+func (v Verts) Transform(pos Vec2, rot Rad, scl Vec2) Verts {
 	// return m.MapF(v, func(p Vec2) Vec2 {
 	// 	return p.Mul(scl).Rot(rot).Add(pos)
 	// })
+
 	result := make(Verts, len(v))
 	for i, p := range v {
 		// x, y := p[0]*scl[0], p[1]*scl[1]
@@ -59,10 +67,11 @@ func (v Verts) Transform(pos Vector2, rot Rad, scl Vector2) Verts {
 }
 
 // Multiply `amount` with each Vert.
-func (v Verts) Transform1(pos Vector2, rot Rad, scl float64) Verts {
+func (v Verts) Transform1(pos Vec2, rot Rad, scl float64) Verts {
 	// return m.MapF(v, func(p Vec2) Vec2 {
 	// 	return p.Mul1(scl).Rot(rot).Add(pos)
 	// })
+
 	result := make(Verts, len(v))
 	for i, p := range v {
 		result[i] = p.Mul1(scl).Rot(rot).Add(pos)
@@ -71,11 +80,12 @@ func (v Verts) Transform1(pos Vector2, rot Rad, scl float64) Verts {
 }
 
 // Multiply `amount` with each Vert.
-func (t Trigs) Transform(pos Vector2, rot Rad, scl Vector2) Trigs {
+func (t Trigs) Transform(pos Vec2, rot Rad, scl Vec2) Trigs {
 	// t.Verts = m.MapF(t.Verts, func(p Vec2) Vec2 {
 	// 	return p.Mul(scl).Rot(rot).Add(pos)
 	// })
 	// return t
+
 	result := Trigs{make(Verts, len(t.Verts)), t.Inds}
 	for i, p := range t.Verts {
 		result.Verts[i] = p.Mul(scl).Rot(rot).Add(pos)
@@ -84,11 +94,12 @@ func (t Trigs) Transform(pos Vector2, rot Rad, scl Vector2) Trigs {
 }
 
 // Multiply `amount` with each Vert.
-func (t Trigs) Transform1(pos Vector2, rot Rad, scl float64) Trigs {
+func (t Trigs) Transform1(pos Vec2, rot Rad, scl float64) Trigs {
 	// t.Verts = m.MapF(t.Verts, func(p Vec2) Vec2 {
 	// 	return p.Mul1(scl).Rot(rot).Add(pos)
 	// })
 	// return t
+
 	result := Trigs{make(Verts, len(t.Verts)), t.Inds}
 	for i, p := range t.Verts {
 		result.Verts[i] = p.Mul1(scl).Rot(rot).Add(pos)

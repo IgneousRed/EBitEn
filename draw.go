@@ -31,25 +31,25 @@ func DrawTriangles(scr *Image, trigs Trigs, clr Color) {
 	}
 	scr.DrawTriangles(verts, trigs.Inds, emptyImg, &eb.DrawTrianglesOptions{})
 }
-func DrawRectangle(scr *Image, pos, size Vector2, clr Color) {
-	DrawTriangles(scr, Trigs{[]Vector2{
+func DrawRectangle(scr *Image, pos, size Vec2, clr Color) {
+	DrawTriangles(scr, Trigs{[]Vec2{
 		pos,
-		pos.Add(Vec2(size.X, 0)),
-		pos.Add(Vec2(0, size.Y)),
-		pos.Add(Vec2(size.X, size.Y)),
+		pos.Add(V2(size.X, 0)),
+		pos.Add(V2(0, size.Y)),
+		pos.Add(V2(size.X, size.Y)),
 	}, []uint16{0, 1, 2, 1, 2, 3}}, clr)
 }
-func DrawLine(scr *Image, a, b Vector2, thickness float64, clr Color) {
+func DrawLine(scr *Image, a, b Vec2, thickness float64, clr Color) {
 	normal := b.Sub(a).Rot90().MagSet(thickness * .5)
-	DrawTriangles(scr, Trigs{[]Vector2{
+	DrawTriangles(scr, Trigs{[]Vec2{
 		a.Sub(normal),
 		a.Add(normal),
 		b.Sub(normal),
 		b.Add(normal),
 	}, []uint16{0, 1, 2, 1, 2, 3}}, clr)
 }
-func DrawCircle(scr *Image, pos Vector2, size float64, points int, clr Color) {
-	verts := make([]Vector2, points)
+func DrawCircle(scr *Image, pos Vec2, size float64, points int, clr Color) {
+	verts := make([]Vec2, points)
 	for i := range verts {
 		verts[i] = Rad(m.Tau * float64(i) / float64(points)).
 			Vec2().Mul1(size).Add(pos)

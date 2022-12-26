@@ -37,15 +37,15 @@ const (
 	WREnabled WindowResizing = WindowResizing(eb.WindowResizingModeEnabled)
 )
 
-var windowSizeOld, windowHalfOld Vector2
-var windowSize, windowHalf Vector2
+var windowSizeOld, windowHalfOld Vec2
+var windowSize, windowHalf Vec2
 
-func WindowSizeOld() Vector2 { return windowSizeOld }
-func WindowHalfOld() Vector2 { return windowHalfOld }
-func WindowSize() Vector2    { return windowSize }
-func WindowHalf() Vector2    { return windowHalf }
+func WindowSizeOld() Vec2 { return windowSizeOld }
+func WindowHalfOld() Vec2 { return windowHalfOld }
+func WindowSize() Vec2    { return windowSize }
+func WindowHalf() Vec2    { return windowHalf }
 
-func WindowSizeSet(size Vector2) {
+func WindowSizeSet(size Vec2) {
 	eb.SetWindowSize(int(size.X), int(size.Y))
 }
 
@@ -68,7 +68,7 @@ func WindowTitleSet(title string) {
 func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
 	// window size
 	windowSizeOld, windowHalfOld = windowSize, windowHalf
-	windowSize = Vec2(float64(outsideX), float64(outsideY))
+	windowSize = V2(float64(outsideX), float64(outsideY))
 	windowHalf = windowSize.Div1(2)
 
 	// camera
@@ -104,7 +104,7 @@ func (g *gameInternal) Update() error {
 
 	// cursor
 	x, y := eb.CursorPosition()
-	cursor = Vec2(float64(x), windowSize.Y-float64(y))
+	cursor = V2(float64(x), windowSize.Y-float64(y))
 
 	// wheel
 	_, yf := eb.Wheel()
@@ -121,5 +121,5 @@ func (g *gameInternal) Draw(scr *Image) {
 }
 
 func Run(game Game) {
-	m.FatalErr(eb.RunGame(&gameInternal{game.Update, game.Draw}), "")
+	m.FatalErr("", eb.RunGame(&gameInternal{game.Update, game.Draw}))
 }
