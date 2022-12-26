@@ -37,15 +37,15 @@ const (
 	WREnabled WindowResizing = WindowResizing(eb.WindowResizingModeEnabled)
 )
 
-var windowSizeOld, windowHalfOld Vec2
-var windowSize, windowHalf Vec2
+var windowSizeOld, windowHalfOld v2
+var windowSize, windowHalf v2
 
-func WindowSizeOld() Vec2 { return windowSizeOld }
-func WindowHalfOld() Vec2 { return windowHalfOld }
-func WindowSize() Vec2    { return windowSize }
-func WindowHalf() Vec2    { return windowHalf }
+func WindowSizeOld() v2 { return windowSizeOld }
+func WindowHalfOld() v2 { return windowHalfOld }
+func WindowSize() v2    { return windowSize }
+func WindowHalf() v2    { return windowHalf }
 
-func WindowSizeSet(size Vec2) {
+func WindowSizeSet(size v2) {
 	eb.SetWindowSize(int(size.X), int(size.Y))
 }
 

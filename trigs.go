@@ -2,12 +2,12 @@ package EduTen
 
 import m "github.com/IgneousRed/gomisc"
 
-type Rad = m.Rad
-type Vec2 = m.Vector2
+type rad = m.Rad
+type v2 = m.Vector2
 
 var V2 = m.Vec2
 
-type Verts []Vec2
+type Verts []v2
 type Inds []u16
 type Trigs struct {
 	Verts Verts
@@ -53,7 +53,7 @@ type Trigs struct {
 // }
 
 // Multiply `amount` with each Vert.
-func (v Verts) Transform(pos Vec2, rot Rad, scl Vec2) Verts {
+func (v Verts) Transform(pos v2, rot rad, scl v2) Verts {
 	// return m.MapF(v, func(p Vec2) Vec2 {
 	// 	return p.Mul(scl).Rot(rot).Add(pos)
 	// })
@@ -67,7 +67,7 @@ func (v Verts) Transform(pos Vec2, rot Rad, scl Vec2) Verts {
 }
 
 // Multiply `amount` with each Vert.
-func (v Verts) Transform1(pos Vec2, rot Rad, scl f64) Verts {
+func (v Verts) Transform1(pos v2, rot rad, scl f64) Verts {
 	// return m.MapF(v, func(p Vec2) Vec2 {
 	// 	return p.Mul1(scl).Rot(rot).Add(pos)
 	// })
@@ -80,7 +80,7 @@ func (v Verts) Transform1(pos Vec2, rot Rad, scl f64) Verts {
 }
 
 // Multiply `amount` with each Vert.
-func (t Trigs) Transform(pos Vec2, rot Rad, scl Vec2) Trigs {
+func (t Trigs) Transform(pos v2, rot rad, scl v2) Trigs {
 	// t.Verts = m.MapF(t.Verts, func(p Vec2) Vec2 {
 	// 	return p.Mul(scl).Rot(rot).Add(pos)
 	// })
@@ -94,7 +94,7 @@ func (t Trigs) Transform(pos Vec2, rot Rad, scl Vec2) Trigs {
 }
 
 // Multiply `amount` with each Vert.
-func (t Trigs) Transform1(pos Vec2, rot Rad, scl f64) Trigs {
+func (t Trigs) Transform1(pos v2, rot rad, scl f64) Trigs {
 	// t.Verts = m.MapF(t.Verts, func(p Vec2) Vec2 {
 	// 	return p.Mul1(scl).Rot(rot).Add(pos)
 	// })

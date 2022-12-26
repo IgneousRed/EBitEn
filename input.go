@@ -138,7 +138,7 @@ const (
 var keysOld []Key
 var keysDown, keysPressed, keysUp [keyCount]bool
 var buttonsDown, buttonsPressed, buttonsUp [buttonCount]bool
-var cursor Vec2
+var cursor v2
 var wheel f64
 
 // Returns true if any key was just pressed
@@ -187,7 +187,7 @@ func ButtonUp(button Button) bool {
 }
 
 // Returns current cursor position
-func Cursor() Vec2 {
+func Cursor() v2 {
 	return cursor
 }
 
