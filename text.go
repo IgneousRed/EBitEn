@@ -13,7 +13,7 @@ import (
 var fontId = 0
 
 type Font struct {
-	id   int
+	id   si
 	data []byte
 }
 
@@ -29,17 +29,17 @@ func FontNew(path string) (Font, error) {
 
 var fonts = map[string]font.Face{}
 
-func DrawText(scr *Image, f Font, size float64, pos Vec2, txt string, clr Color) {
+func DrawText(scr *Image, f Font, size f64, pos Vec2, txt string, clr Color) {
 	str := fmt.Sprint(f.id, size)
 	face, ok := fonts[str]
 	if !ok {
 		ttf, _ := opentype.Parse(f.data)
 		face, _ = opentype.NewFace(ttf, &opentype.FaceOptions{
-			Size:    float64(size),
+			Size:    f64(size),
 			DPI:     72,
 			Hinting: font.HintingFull,
 		})
 		fonts[str] = face
 	}
-	text.Draw(scr, txt, face, int(pos.X), int(windowSize.Y-pos.Y), clr.Color())
+	text.Draw(scr, txt, face, si(pos.X), si(windowSize.Y-pos.Y), clr.Color())
 }

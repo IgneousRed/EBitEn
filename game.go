@@ -46,7 +46,7 @@ func WindowSize() Vec2    { return windowSize }
 func WindowHalf() Vec2    { return windowHalf }
 
 func WindowSizeSet(size Vec2) {
-	eb.SetWindowSize(int(size.X), int(size.Y))
+	eb.SetWindowSize(si(size.X), si(size.Y))
 }
 
 func WindowMinimize() {
@@ -65,10 +65,10 @@ func WindowTitleSet(title string) {
 	eb.SetWindowTitle(title)
 }
 
-func (g *gameInternal) Layout(outsideX, outsideY int) (screenX, screenY int) {
+func (g *gameInternal) Layout(outsideX, outsideY si) (screenX, screenY si) {
 	// window size
 	windowSizeOld, windowHalfOld = windowSize, windowHalf
-	windowSize = V2(float64(outsideX), float64(outsideY))
+	windowSize = V2(f64(outsideX), f64(outsideY))
 	windowHalf = windowSize.Div1(2)
 
 	// camera
@@ -104,7 +104,7 @@ func (g *gameInternal) Update() error {
 
 	// cursor
 	x, y := eb.CursorPosition()
-	cursor = V2(float64(x), windowSize.Y-float64(y))
+	cursor = V2(f64(x), windowSize.Y-f64(y))
 
 	// wheel
 	_, yf := eb.Wheel()
