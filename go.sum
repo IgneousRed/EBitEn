@@ -27,6 +27,8 @@ github.com/IgneousRed/gomisc v0.0.0-20221226124349-770bd48b2aec h1:UMUJn8Knx+xEN
 github.com/IgneousRed/gomisc v0.0.0-20221226124349-770bd48b2aec/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
 github.com/IgneousRed/gomisc v0.0.0-20221226231600-be46d7a023be h1:IthXk+qjme31ucR4bOothDoTGkvRN81A1kEz3Dfx3dU=
 github.com/IgneousRed/gomisc v0.0.0-20221226231600-be46d7a023be/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
+github.com/IgneousRed/gomisc v0.0.0-20221230152132-162eac5caf34 h1:v0ZqrRwWHh1FmgB94hBEghbc4/H8ybgt0gOJ110uL5M=
+github.com/IgneousRed/gomisc v0.0.0-20221230152132-162eac5caf34/go.mod h1:giHZkQtQcGNGXVzGoYowo3Vc5KT6q4xH8u/h3hBrkBY=
 github.com/ebitengine/purego v0.0.0-20220905075623-aeed57cda744/go.mod h1:Eh8I3yvknDYZeCuXH9kRNaPuHEwvXDCk378o9xszmHg=
 github.com/ebitengine/purego v0.1.1 h1:HI8nW+LniW9Yb34k34jBs8nz+PNzsw68o7JF8jWFHHE=
 github.com/ebitengine/purego v0.1.1/go.mod h1:Eh8I3yvknDYZeCuXH9kRNaPuHEwvXDCk378o9xszmHg=
