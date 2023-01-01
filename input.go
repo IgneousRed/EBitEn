@@ -136,7 +136,7 @@ const (
 	buttonCount = iota
 )
 
-var keysOld []Key
+var keysOld []Key // TODO: Separate?
 var keysDown, keysPressed, keysUp [keyCount]bool
 var buttonsDown, buttonsPressed, buttonsUp [buttonCount]bool
 var cursor v2

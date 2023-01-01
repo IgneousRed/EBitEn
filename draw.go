@@ -51,8 +51,7 @@ func DrawLine(scr *Image, a, b v2, thickness f64, clr Color) {
 func DrawCircle(scr *Image, pos v2, size f64, points int, clr Color) {
 	verts := make([]v2, points)
 	for i := range verts {
-		verts[i] = rad(m.Tau * f64(i) / f64(points)).
-			Vec2().Mul1(size).Add(pos)
+		verts[i] = rad(m.Tau * f64(i) / f64(points)).Vec2().Mul1(size).Add(pos)
 	}
 	inds := make([]u16, 0, (points-2)*3)
 	for i := 2; i < points; i++ {
