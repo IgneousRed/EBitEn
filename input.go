@@ -6,7 +6,8 @@ import (
 
 // A Key represents a keyboard key.
 // These keys represent pysical keys of US keyboard.
-// For example, KeyQ represents Q key on US keyboards and ' (quote) key on Dvorak keyboards.
+// For example, KeyQ represents Q key on US keyboards
+// and ' (quote) key on Dvorak keyboards.
 type Key = eb.Key
 
 // Keys.

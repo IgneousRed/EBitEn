@@ -18,7 +18,8 @@ type gameInternal struct {
 
 // Mode in which a user resizes the window.
 //
-// Regardless of the resizing mode, an Ebiten application can still change the window size or make
+// Regardless of the resizing mode,
+// an Ebiten application can still change the window size or make
 // the window fullscreen by calling Ebiten functions.
 type WindowResizing = eb.WindowResizingModeType
 
@@ -31,7 +32,9 @@ const (
 	// but allow to make the window fullscreen by a user.
 	// This works only on macOS so far.
 	// On the other platforms, this is the same as WindowResizingModeDisabled.
-	WROnlyFullscreen WindowResizing = WindowResizing(eb.WindowResizingModeOnlyFullscreenEnabled)
+	WROnlyFullscreen WindowResizing = WindowResizing(
+		eb.WindowResizingModeOnlyFullscreenEnabled,
+	)
 
 	// Allow resizing the window by a user.
 	WREnabled WindowResizing = WindowResizing(eb.WindowResizingModeEnabled)
